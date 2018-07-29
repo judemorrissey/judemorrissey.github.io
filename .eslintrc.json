@@ -1,0 +1,48 @@
+{
+    "extends": "eslint:recommended",
+    "globals": {
+        "$": true,
+        "console": true,
+        "document": true,
+        "React": true,
+        "ReactDOM": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "impliedStrict": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "comma-dangle": 2,
+        "curly": 2,
+        "eol-last": 2,
+        "eqeqeq": 2,
+        "indent": [2, 4],
+        "jsx-quotes": [1, "prefer-double"],
+        "new-cap": 1,
+        "new-parens": 1,
+        "no-console": 0,
+        "no-const-assign": 2,
+        "no-dupe-class-members": 2,
+        "no-duplicate-imports": 2,
+        "no-mixed-operators": 1,
+        "no-trailing-spaces": 2,
+        "no-unused-vars": [1, {
+            "args": "none"
+        }],
+        "no-use-before-define": 2,
+        "no-useless-computed-key": 1,
+        "no-useless-constructor": 1,
+        "no-useless-rename": 1,
+        "no-var": 2,
+        "prefer-rest-params": 1,
+        "prefer-spread": 1,
+        "quotes": [1, "single"],
+        "semi": [2, "always"],
+        "spaced-comment": 1,
+        "strict": 2
+    }
+}
