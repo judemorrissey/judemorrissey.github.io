@@ -1,4 +1,4 @@
-import LikeButton from 'like_button';
+import LikeButton from './like_button.js';
 
 const e = React.createElement; // (component_name, props, children)
 class App extends React.Component {
