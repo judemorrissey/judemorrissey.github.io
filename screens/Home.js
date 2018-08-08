@@ -1,5 +1,6 @@
 import LikeButton from '../components/LikeButton.js';
 import Transposer from '../components/Transposer/Transposer.js';
+import Adventure from '../components/Adventure/Adventure.js';
 
 const e = React.createElement; // (component_name, props, children)
 class Home extends React.Component {
@@ -16,7 +17,11 @@ class Home extends React.Component {
                 e('h1', null, 'Transposer'),
                 e(Transposer)
             ),
-            e('hr')
+            e('hr'),
+            e('div', {className: 'adventureContainer'},
+                e('h1', null, 'Adventure'),
+                e(Adventure)
+            )
         );
     }
 }
