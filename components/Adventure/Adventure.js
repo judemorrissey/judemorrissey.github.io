@@ -14,9 +14,10 @@ export default class Transposer extends React.Component {
             '#': 'is unpassable'
         };
         this.state = Object.assign({}, {
+            board: null,
             logs: [],
             pos: [0, 0],
-            board: null
+            visibility: 2
         });
     }
 
@@ -25,27 +26,24 @@ export default class Transposer extends React.Component {
     }
 
     regenerateBoard(xlen, ylen) {
-        // first, build a 2 dim array of size xlen x ylen
+        // board is a 3 dimensional array, where board[x][y][0] will give you the bottom-most entity on coordinate (x, y)
+        // first generate a board filled with air
         const board = [];
         let i;
         for (i = 0; i < xlen; i++) {
             const column = [];
             let j;
             for (j = 0; j < ylen; j++) {
-                // if (i === 0 || i === dims[0] - 1 || j === 0 || j === dims[1] - 1) {
-                //     column.push(this.friendlyNameToSymbolMap.wall);
-                //     continue;
-                // }
-                column.push(this.friendlyNameToSymbolMap.air);
+                column.push([this.friendlyNameToSymbolMap.air]);
             }
             board.push(column);
         }
 
         // hero always starts at origin
-        board[0][0] = this.friendlyNameToSymbolMap.hero;
+        board[0][0].push(this.friendlyNameToSymbolMap.hero);
 
         // exit is always at opposite corner of hero
-        board[xlen - 1][ylen - 1] = this.friendlyNameToSymbolMap.exit;
+        board[xlen - 1][ylen - 1].push(this.friendlyNameToSymbolMap.exit);
         // console.log('board is', board)
         return this.setState({
             logs: ['Game started.'],
@@ -61,15 +59,16 @@ export default class Transposer extends React.Component {
             const nx = px + dx;
             const ny = py + dy;
             const board = prevState.board;
-            const destination_cell_entity = ((board[nx] || [])[ny] || this.friendlyNameToSymbolMap.wall);
+            const entities = (board[nx] || [])[ny] || [this.friendlyNameToSymbolMap.wall];
+            const destination_cell_entity = entities[entities.length - 1];
             if (destination_cell_entity === this.friendlyNameToSymbolMap.wall) {
                 return {
                     logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a wall there.`])
                 };
             }
+            // move the hero from their current location to the new one
+            board[nx][ny].push(board[px][py].pop());
             const newPos = [nx, ny];
-            board[px][py] = this.friendlyNameToSymbolMap.air;
-            board[nx][ny] = this.friendlyNameToSymbolMap.hero;
             return {
                 logs: prevState.logs.concat([`Hero moved ${displacement} from ${prevState.pos} onto ${newPos}`]),
                 pos: newPos
@@ -85,7 +84,7 @@ export default class Transposer extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'space-evenly'
             }
-        }, ...column.map(symbol => {
+        }, ...column.map(entities => {
             return e('div', {
                 style: {
                     display: 'flex',
@@ -98,11 +97,11 @@ export default class Transposer extends React.Component {
                     height: '30px',
                     width: '30px'
                 }
-            }, symbol);
+            }, entities[entities.length - 1]);
         }));
     }
 
-    renderViewPort() {
+    renderViewPort(visibility = 2) {
         const {
             pos,
             board
@@ -112,10 +111,10 @@ export default class Transposer extends React.Component {
         const [x, y] = pos;
         const vp_columns = [];
         let i, j;
-        for (i = x - 2; i <= x + 2; i++) {
+        for (i = x - visibility; i <= x + visibility; i++) {
             const column = board[i] || [];
             const vp_column = [];
-            for (j = y - 2; j <= y + 2; j++) {
+            for (j = y - visibility; j <= y + visibility; j++) {
                 const item = column[j] || this.friendlyNameToSymbolMap.wall;
                 vp_column.push(item);
             }
@@ -167,7 +166,8 @@ export default class Transposer extends React.Component {
 
     render() {
         const {
-            board
+            board,
+            visibility
         } = this.state;
 
         if (!board) {
@@ -175,7 +175,7 @@ export default class Transposer extends React.Component {
         }
 
         return e('div', {},
-            this.renderViewPort(),
+            this.renderViewPort(visibility),
             this.renderLegend(),
             this.renderControls(),
             this.renderLog()
