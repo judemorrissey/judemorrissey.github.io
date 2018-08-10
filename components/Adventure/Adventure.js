@@ -18,7 +18,8 @@ export default class Adventure extends React.Component {
         this.state = Object.assign({}, {
             board: null,
             logs: [],
-            pos: [0, 0],
+            g_positions: [],
+            hero_position: [0, 0],
             turn_in_progress: false,
             visibility: 2
         });
@@ -26,7 +27,7 @@ export default class Adventure extends React.Component {
 
     componentDidMount() {
         const getRandomLength = function () {
-            return Math.max(Math.floor((Math.random() * 30), 15));
+            return Math.max(Math.floor(Math.random() * 30), 15);
         };
         this.regenerateBoard(getRandomLength(), getRandomLength());
     }
@@ -59,17 +60,25 @@ export default class Adventure extends React.Component {
                 Math.min(Math.floor((Math.random() * ylen) - 2), 2)
             ];
         };
+        const g_positions = [];
         while (gcount > 0) {
             const [x, y] = getRandomSafeCoordinate();
             board[x][y].push(this.friendlyNameToSymbolMap.golem);
+            g_positions.push([x, y]);
             gcount--;
         }
 
         return this.setState({
             logs: ['Game started.'],
-            pos: [0, 0],
+            g_positions,
+            hero_position: [0, 0],
             board
         });
+    }
+
+    updateBoard(callback) {
+        // TODO: fill this in
+        return callback();
     }
 
     moveHero(displacement) {
@@ -81,7 +90,7 @@ export default class Adventure extends React.Component {
         }, () => {
             return this.setState(prevState => {
                 const [dx, dy] = displacement;
-                const [px, py] = prevState.pos;
+                const [px, py] = prevState.hero_position;
                 const nx = px + dx;
                 const ny = py + dy;
                 const board = prevState.board;
@@ -96,12 +105,14 @@ export default class Adventure extends React.Component {
                 board[nx][ny].push(board[px][py].pop());
                 const newPos = [nx, ny];
                 return {
-                    logs: prevState.logs.concat([`Hero moved ${displacement} from ${prevState.pos} onto ${newPos}`]),
-                    pos: newPos
+                    logs: prevState.logs.concat([`Hero moved ${displacement} from ${prevState.hero_position} onto ${newPos}`]),
+                    hero_position: newPos
                 };
             }, () => {
-                return this.setState({
-                    turn_in_progress: false
+                this.updateBoard(() => {
+                    return this.setState({
+                        turn_in_progress: false
+                    });
                 });
             });
         });
@@ -134,12 +145,12 @@ export default class Adventure extends React.Component {
 
     renderViewPort(visibility = 2) {
         const {
-            pos,
+            hero_position,
             board
         } = this.state;
 
         // grab the adjacent rows of where the hero is, then slice out adjacent columns
-        const [x, y] = pos;
+        const [x, y] = hero_position;
         const vp_columns = [];
         let i, j;
         for (i = x - visibility; i <= x + visibility; i++) {
