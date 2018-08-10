@@ -1,28 +1,34 @@
 const e = React.createElement; // (component_name, props, children)
-export default class Transposer extends React.Component {
+export default class Adventure extends React.Component {
     constructor(props) {
         super(props);
         this.friendlyNameToSymbolMap = {
             air: ' ',
-            hero: '@',
             exit: 'O',
+            golem: 'G',
+            hero: '@',
             wall: '#'
         };
         this.symbolToLegendTextMap = {
             '@': 'is your hero',
             O: 'marks the exit',
-            '#': 'is unpassable'
+            '#': 'is unpassable',
+            'G': 'are evil enemies, watch out!'
         };
         this.state = Object.assign({}, {
             board: null,
             logs: [],
             pos: [0, 0],
+            turn_in_progress: false,
             visibility: 2
         });
     }
 
     componentDidMount() {
-        this.regenerateBoard(15, 15);
+        const getRandomLength = function () {
+            return Math.max(Math.floor((Math.random() * 30), 15));
+        };
+        this.regenerateBoard(getRandomLength(), getRandomLength());
     }
 
     regenerateBoard(xlen, ylen) {
@@ -44,7 +50,21 @@ export default class Transposer extends React.Component {
 
         // exit is always at opposite corner of hero
         board[xlen - 1][ylen - 1].push(this.friendlyNameToSymbolMap.exit);
-        // console.log('board is', board)
+
+        // randomly place n Gs, at least one G per 25 available cells
+        let gcount = Math.floor(Math.random() * xlen * ylen / 25);
+        const getRandomSafeCoordinate = function () {
+            return [
+                Math.min(Math.floor((Math.random() * xlen) - 2), 2),
+                Math.min(Math.floor((Math.random() * ylen) - 2), 2)
+            ];
+        };
+        while (gcount > 0) {
+            const [x, y] = getRandomSafeCoordinate();
+            board[x][y].push(this.friendlyNameToSymbolMap.golem);
+            gcount--;
+        }
+
         return this.setState({
             logs: ['Game started.'],
             pos: [0, 0],
@@ -53,26 +73,37 @@ export default class Transposer extends React.Component {
     }
 
     moveHero(displacement) {
-        const [dx, dy] = displacement;
-        return this.setState(prevState => {
-            const [px, py] = prevState.pos;
-            const nx = px + dx;
-            const ny = py + dy;
-            const board = prevState.board;
-            const entities = (board[nx] || [])[ny] || [this.friendlyNameToSymbolMap.wall];
-            const destination_cell_entity = entities[entities.length - 1];
-            if (destination_cell_entity === this.friendlyNameToSymbolMap.wall) {
+        if (this.state.turn_in_progress) {
+            return; // don't do anything if turn is still progressing
+        }
+        return this.setState({
+            turn_in_progress: true
+        }, () => {
+            return this.setState(prevState => {
+                const [dx, dy] = displacement;
+                const [px, py] = prevState.pos;
+                const nx = px + dx;
+                const ny = py + dy;
+                const board = prevState.board;
+                const entities = (board[nx] || [])[ny] || [this.friendlyNameToSymbolMap.wall];
+                const destination_cell_entity = entities[entities.length - 1];
+                if (destination_cell_entity === this.friendlyNameToSymbolMap.wall) {
+                    return {
+                        logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a wall there.`])
+                    };
+                }
+                // move the hero from their current location to the new one
+                board[nx][ny].push(board[px][py].pop());
+                const newPos = [nx, ny];
                 return {
-                    logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a wall there.`])
+                    logs: prevState.logs.concat([`Hero moved ${displacement} from ${prevState.pos} onto ${newPos}`]),
+                    pos: newPos
                 };
-            }
-            // move the hero from their current location to the new one
-            board[nx][ny].push(board[px][py].pop());
-            const newPos = [nx, ny];
-            return {
-                logs: prevState.logs.concat([`Hero moved ${displacement} from ${prevState.pos} onto ${newPos}`]),
-                pos: newPos
-            };
+            }, () => {
+                return this.setState({
+                    turn_in_progress: false
+                });
+            });
         });
     }
 
