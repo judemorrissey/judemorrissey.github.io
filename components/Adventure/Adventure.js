@@ -21,7 +21,7 @@ export default class Adventure extends React.Component {
             g_positions: [],
             hero_position: [0, 0],
             turn_in_progress: false,
-            visibility: 2
+            visibility: 3
         });
     }
 
@@ -56,8 +56,8 @@ export default class Adventure extends React.Component {
         let gcount = Math.floor(Math.random() * xlen * ylen / 25);
         const getRandomSafeCoordinate = function () {
             return [
-                Math.min(Math.floor((Math.random() * xlen) - 2), 2),
-                Math.min(Math.floor((Math.random() * ylen) - 2), 2)
+                Math.max(Math.floor((Math.random() * xlen) - 2), 2),
+                Math.max(Math.floor((Math.random() * ylen) - 2), 2)
             ];
         };
         const g_positions = [];
@@ -132,8 +132,9 @@ export default class Adventure extends React.Component {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    borderStyle: 'dashed',
                     borderWidth: '1px',
-                    borderColor: 'gray',
+                    borderColor: 'lightgray',
                     fontSize: '2em',
                     padding: '4px',
                     height: '30px',
@@ -143,7 +144,7 @@ export default class Adventure extends React.Component {
         }));
     }
 
-    renderViewPort(visibility = 2) {
+    renderViewPort(visibility) {
         const {
             hero_position,
             board
@@ -168,10 +169,7 @@ export default class Adventure extends React.Component {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                justifyContent: 'space-evenly',
-                padding: '16px',
-                height: '150px',
-                width: '150px'
+                padding: '16px'
             }
         },
         ...vp_columns.map(this.renderViewPortColumn)
