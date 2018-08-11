@@ -1,20 +1,8 @@
 const e = React.createElement; // (component_name, props, children)
+import {Air, Exit, Golem, Hero, Wall} from './Entity.js';
 export default class Adventure extends React.Component {
     constructor(props) {
         super(props);
-        this.friendlyNameToSymbolMap = {
-            air: ' ',
-            exit: 'O',
-            golem: 'G',
-            hero: '@',
-            wall: '#'
-        };
-        this.symbolToLegendTextMap = {
-            '@': 'is your hero',
-            O: 'marks the exit',
-            '#': 'is unpassable',
-            'G': 'are evil enemies, watch out!'
-        };
         this.state = Object.assign({}, {
             board: null,
             logs: [],
@@ -41,16 +29,16 @@ export default class Adventure extends React.Component {
             const column = [];
             let j;
             for (j = 0; j < ylen; j++) {
-                column.push([this.friendlyNameToSymbolMap.air]);
+                column.push([new Air()]);
             }
             board.push(column);
         }
 
         // hero always starts at origin
-        board[0][0].push(this.friendlyNameToSymbolMap.hero);
+        board[0][0].push(new Hero());
 
         // exit is always at opposite corner of hero
-        board[xlen - 1][ylen - 1].push(this.friendlyNameToSymbolMap.exit);
+        board[xlen - 1][ylen - 1].push(new Exit());
 
         // randomly place n Gs, at least one G per 25 available cells
         let gcount = Math.floor(Math.random() * xlen * ylen / 25);
@@ -63,7 +51,7 @@ export default class Adventure extends React.Component {
         const g_positions = [];
         while (gcount > 0) {
             const [x, y] = getRandomSafeCoordinate();
-            board[x][y].push(this.friendlyNameToSymbolMap.golem);
+            board[x][y].push(new Golem());
             g_positions.push([x, y]);
             gcount--;
         }
@@ -94,9 +82,9 @@ export default class Adventure extends React.Component {
                 const nx = px + dx;
                 const ny = py + dy;
                 const board = prevState.board;
-                const entities = (board[nx] || [])[ny] || [this.friendlyNameToSymbolMap.wall];
+                const entities = (board[nx] || [])[ny] || [new Wall()];
                 const destination_cell_entity = entities[entities.length - 1];
-                if (destination_cell_entity === this.friendlyNameToSymbolMap.wall) {
+                if (destination_cell_entity.constructor.name === 'Wall') {
                     return {
                         logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a wall there.`])
                     };
@@ -140,7 +128,7 @@ export default class Adventure extends React.Component {
                     height: '30px',
                     width: '30px'
                 }
-            }, entities[entities.length - 1]);
+            }, entities[entities.length - 1].constructor.symbol());
         }));
     }
 
@@ -158,8 +146,8 @@ export default class Adventure extends React.Component {
             const column = board[i] || [];
             const vp_column = [];
             for (j = y - visibility; j <= y + visibility; j++) {
-                const item = column[j] || this.friendlyNameToSymbolMap.wall;
-                vp_column.push(item);
+                const entities = column[j] || [new Wall()];
+                vp_column.push(entities);
             }
             vp_columns.push(vp_column);
         }
@@ -178,7 +166,7 @@ export default class Adventure extends React.Component {
 
     renderLegend() {
         return e('div', {className: 'legendContainer'},
-            ...Object.keys(this.symbolToLegendTextMap).map(symbol => e('div', {}, `${symbol} ${this.symbolToLegendTextMap[symbol]}`))
+            ...[Hero, Exit, Wall, Golem].map(entityClass => e('div', {}, `${entityClass.symbol()} ${entityClass.description()}`))
         );
     }
 
