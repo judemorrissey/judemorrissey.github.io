@@ -1,8 +1,12 @@
 class Entity {
-    static symbol() {
+    constructor() {
+        this.isPassable = false;
+    }
+
+    static getSymbol() {
         return  '';
     }
-    static description() {
+    static getDescription() {
         return '';
     }
 }
@@ -12,19 +16,23 @@ class MobileEntity extends Entity {
 }
 
 export class Hero extends MobileEntity {
-    static symbol() {
+    constructor() {
+        super();
+        this.isPassable = true;
+    }
+    static getSymbol() {
         return '@';
     }
-    static description() {
+    static getDescription() {
         return 'is your hero.';
     }
 }
 
 export class Golem extends MobileEntity {
-    static symbol() {
+    static getSymbol() {
         return 'G';
     }
-    static description() {
+    static getDescription() {
         return 'is an evil enemy, watch out!';
     }
 }
@@ -34,28 +42,36 @@ class StaticEntity extends Entity {
 }
 
 export class Air extends StaticEntity {
-    static symbol() {
+    constructor() {
+        super();
+        this.isPassable = true;
+    }
+    static getSymbol() {
         return ' ';
     }
-    static description() {
+    static getDescription() {
         return 'is free and clear.';
     }
 }
 
 export class Wall extends StaticEntity {
-    static symbol() {
+    static getSymbol() {
         return '#';
     }
-    static description() {
+    static getDescription() {
         return 'denotes impassable terrain.';
     }
 }
 
 export class Exit extends StaticEntity {
-    static symbol() {
+    constructor() {
+        super();
+        this.isPassable = true;
+    }
+    static getSymbol() {
         return 'O';
     }
-    static description() {
+    static getDescription() {
         return 'is how to escape the G.';
     }
 }

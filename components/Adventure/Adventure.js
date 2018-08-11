@@ -84,9 +84,9 @@ export default class Adventure extends React.Component {
                 const board = prevState.board;
                 const entities = (board[nx] || [])[ny] || [new Wall()];
                 const destination_cell_entity = entities[entities.length - 1];
-                if (destination_cell_entity.constructor.name === 'Wall') {
+                if (!destination_cell_entity.isPassable) {
                     return {
-                        logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a wall there.`])
+                        logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a ${destination_cell_entity.constructor.name.toLowerCase()} there.`])
                     };
                 }
                 // move the hero from their current location to the new one
@@ -114,7 +114,7 @@ export default class Adventure extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'space-evenly'
             }
-        }, ...column.map(entities => {
+        }, ...column.map(symbol => {
             return e('div', {
                 style: {
                     display: 'flex',
@@ -128,7 +128,7 @@ export default class Adventure extends React.Component {
                     height: '30px',
                     width: '30px'
                 }
-            }, entities[entities.length - 1].constructor.symbol());
+            }, symbol);
         }));
     }
 
@@ -146,8 +146,9 @@ export default class Adventure extends React.Component {
             const column = board[i] || [];
             const vp_column = [];
             for (j = y - visibility; j <= y + visibility; j++) {
-                const entities = column[j] || [new Wall()];
-                vp_column.push(entities);
+                const entities = column[j] || [];
+                const symbol = entities.length ? entities[entities.length - 1].constructor.getSymbol() : Wall.getSymbol();
+                vp_column.push(symbol);
             }
             vp_columns.push(vp_column);
         }
@@ -166,7 +167,7 @@ export default class Adventure extends React.Component {
 
     renderLegend() {
         return e('div', {className: 'legendContainer'},
-            ...[Hero, Exit, Wall, Golem].map(entityClass => e('div', {}, `${entityClass.symbol()} ${entityClass.description()}`))
+            ...[Hero, Exit, Wall, Golem].map(entityClass => e('div', {}, `${entityClass.getSymbol()} ${entityClass.getDescription()}`))
         );
     }
 
