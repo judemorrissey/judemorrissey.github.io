@@ -4,7 +4,7 @@
   "description": "My GitHub hosted static webpage for practicing front-end stuff.",
   "main": "index.html",
   "scripts": {
-    "test": "mocha $(find ./test/ -name \"*.js\")"
+    "test": "mocha --compilers js:babel-core/register $(find ./test/ -name \"*.js\")"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,13 @@
   },
   "homepage": "https://github.com/judemorrissey/judemorrissey.github.io#readme",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "react": "^16.4.2"
+  },
+  "babel": {
+    "presets": ["es2015"]
   }
 }
