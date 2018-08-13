@@ -1,0 +1,23 @@
+{
+  "name": "judemorrissey.github.io",
+  "version": "1.0.0",
+  "description": "My GitHub hosted static webpage for practicing front-end stuff.",
+  "main": "index.html",
+  "scripts": {
+    "test": "mocha $(find ./test/ -name \"*.js\")"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/judemorrissey/judemorrissey.github.io.git"
+  },
+  "author": "@judemorrissey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/judemorrissey/judemorrissey.github.io/issues"
+  },
+  "homepage": "https://github.com/judemorrissey/judemorrissey.github.io#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
