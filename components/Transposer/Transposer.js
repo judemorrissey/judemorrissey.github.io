@@ -1,10 +1,10 @@
+import * as TransposerLib from '../../lib/transposer.js';
 import StepButtons from '../Generics/StepButtons.js';
 
 const e = React.createElement; // (component_name, props, children)
 export default class Transposer extends React.Component {
     constructor(props) {
         super(props);
-        this.roots = 'A,Bb/A#,B/Cb,C/B#,C#/Db,D,Eb/D#,E,F,F#/Gb,G,Ab/G#'.split(',').map(x => x.split('/'));
         this.state = {
             chords: [],
             halfStepsDown: 4,
@@ -17,16 +17,7 @@ export default class Transposer extends React.Component {
     }
 
     transpose(chords, halfSteps) {
-        const transposed = chords.map(chord => {
-            const matches = chord.match(/^(\w[#b]?)([\w\d]*)$/);
-            const [, rootNote, flavor] = matches;
-            const normalizedRoot = rootNote[0].toUpperCase() + rootNote.slice(1);
-            const roots = this.roots.slice();
-            const index = roots.findIndex(x => x.indexOf(normalizedRoot) !== -1);
-            if (index === -1) { return '?' + flavor; }
-            return roots.splice((index + halfSteps) % roots.length, 1).shift().slice().shift() + flavor;
-        });
-        return transposed;
+        return TransposerLib.transpose(chords, halfSteps);
     }
 
     onInputChange(event) {
