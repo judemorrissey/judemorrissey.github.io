@@ -4,7 +4,7 @@
   "description": "My GitHub hosted static webpage for practicing front-end stuff.",
   "main": "index.html",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register $(find ./test/ -name \"*.js\")",
+    "test": "mocha --require babel-core/register $(find ./test/ -name \"*.js\")",
     "start": "http-server -c-1"
   },
   "repository": {
