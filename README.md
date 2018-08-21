@@ -7,3 +7,4 @@ This is my endeavor with trying to make a static website hosted by Github. Hopef
 To run a local webserver:
 - first make sure you have this module installed `npm install http-server`
 - then cd into your project directory, and run `http-server -c-1`
+- alternatively, feel free to use `npm start`, which basically does the same thing above :)
