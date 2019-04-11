@@ -4,8 +4,10 @@
   "description": "My GitHub hosted static webpage for practicing front-end stuff.",
   "main": "index.html",
   "scripts": {
-    "test": "mocha --require babel-core/register $(find ./test/ -name \"*.js\")",
-    "start": "http-server -c-1"
+    "compile": "scripts/compile.sh",
+    "prestart": "npm run compile",
+    "start": "http-server -c-1",
+    "test": "mocha --require babel-core/register $(find ./test/ -name \"*.js\")"
   },
   "repository": {
     "type": "git",
