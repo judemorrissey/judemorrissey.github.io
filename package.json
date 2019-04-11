@@ -4,8 +4,9 @@
   "description": "My GitHub hosted static webpage for practicing front-end stuff.",
   "main": "index.html",
   "scripts": {
-    "compile": "scripts/compile.sh",
-    "prestart": "npm run compile",
+    "auto-compile-css": "sass --watch --style=compressed --no-source-map css:css",
+    "compile-css": "scripts/compile.sh",
+    "prestart": "npm run compile-css",
     "start": "http-server -c-1",
     "test": "mocha --require babel-core/register $(find ./test/ -name \"*.js\")"
   },
