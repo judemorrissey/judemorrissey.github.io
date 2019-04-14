@@ -9,7 +9,7 @@ export default class Adventure extends React.Component {
             g_positions: [],
             hero_position: [0, 0],
             turn_in_progress: false,
-            visibility: 3
+            visibility: 5
         });
     }
 
@@ -107,29 +107,9 @@ export default class Adventure extends React.Component {
     }
 
     renderViewPortColumn(column) {
-        return e('div', {
-            style: {
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'space-evenly'
-            }
-        }, ...column.map(symbol => {
-            return e('div', {
-                style: {
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderStyle: 'dashed',
-                    borderWidth: '1px',
-                    borderColor: 'lightgray',
-                    fontSize: '2em',
-                    padding: '4px',
-                    height: '30px',
-                    width: '30px'
-                }
-            }, symbol);
-        }));
+        return e('div', {className: 'viewPortColumn'},
+            ...column.map(symbol => e('div', {className: 'viewPortCell'}, symbol))
+        );
     }
 
     renderViewPort(visibility) {
@@ -153,15 +133,8 @@ export default class Adventure extends React.Component {
             vp_columns.push(vp_column);
         }
 
-        return e('div', {
-            style: {
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: '16px'
-            }
-        },
-        ...vp_columns.map(this.renderViewPortColumn)
+        return e('div', {className: 'viewPortContainer'},
+            ...vp_columns.map(this.renderViewPortColumn)
         );
     }
 
@@ -184,11 +157,7 @@ export default class Adventure extends React.Component {
         const logs = this.state.logs;
         return e('div', {className: 'logContainer'},
             ...logs.slice(-5).reverse().map((log, i) => {
-                return e('div', {
-                    style: {
-                        backgroundColor: i % 2 !== 0 ? 'lightGray' : 'white'
-                    }
-                }, log);
+                return e('div', {className: 'logEntry'}, log);
             })
         );
     }
@@ -203,7 +172,7 @@ export default class Adventure extends React.Component {
             return e('div', {}, 'Loading…');
         }
 
-        return e('div', {},
+        return e('div', {className: 'adventureContainer'},
             this.renderViewPort(visibility),
             this.renderLegend(),
             this.renderControls(),
