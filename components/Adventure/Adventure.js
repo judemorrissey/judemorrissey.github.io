@@ -23,13 +23,13 @@ export default class Adventure extends React.Component {
     regenerateBoard(xlen, ylen) {
         // board is a 3 dimensional array, where board[x][y][0] will give you the bottom-most entity on coordinate (x, y)
         // first generate a board filled with air
-        const board = [];
+        const board = []; // TODO: Board should be a class, and should keep track of important entity positions
         let i;
         for (i = 0; i < xlen; i++) {
             const column = [];
             let j;
             for (j = 0; j < ylen; j++) {
-                column.push([new Air()]);
+                column.push([new Air()]); // TODO: maybe make this an EntityStack or something?
             }
             board.push(column);
         }
@@ -65,8 +65,12 @@ export default class Adventure extends React.Component {
     }
 
     updateBoard(callback) {
-        // TODO: fill this in
-        return callback();
+        return this.setState(prevState => {
+            const {
+                board,
+                g_positions
+            } = prevState;
+        }, callback);
     }
 
     moveHero(displacement) {
@@ -84,7 +88,7 @@ export default class Adventure extends React.Component {
                 const board = prevState.board;
                 const entities = (board[nx] || [])[ny] || [new Wall()];
                 const destination_cell_entity = entities[entities.length - 1];
-                if (!destination_cell_entity.isPassable) {
+                if (!destination_cell_entity.isPassable()) {
                     return {
                         logs: prevState.logs.concat([`Tried to move ${displacement}, but there's a ${destination_cell_entity.constructor.name.toLowerCase()} there.`])
                     };
@@ -97,7 +101,7 @@ export default class Adventure extends React.Component {
                     hero_position: newPos
                 };
             }, () => {
-                this.updateBoard(() => {
+                return this.updateBoard(() => {
                     return this.setState({
                         turn_in_progress: false
                     });

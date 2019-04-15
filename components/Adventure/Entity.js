@@ -1,13 +1,12 @@
 class Entity {
-    constructor() {
-        this.isPassable = false;
-    }
-
     static getSymbol() {
         return  '';
     }
     static getDescription() {
         return '';
+    }
+    isPassable(by_entity) {
+        return false;
     }
 }
 
@@ -16,15 +15,14 @@ class MobileEntity extends Entity {
 }
 
 export class Hero extends MobileEntity {
-    constructor() {
-        super();
-        this.isPassable = true;
-    }
     static getSymbol() {
         return '@';
     }
     static getDescription() {
         return 'is your hero.';
+    }
+    isPassable(by_entity) {
+        return true;
     }
 }
 
@@ -42,15 +40,14 @@ class StaticEntity extends Entity {
 }
 
 export class Air extends StaticEntity {
-    constructor() {
-        super();
-        this.isPassable = true;
-    }
     static getSymbol() {
         return ' ';
     }
     static getDescription() {
         return 'is free and clear.';
+    }
+    isPassable(by_entity) {
+        return true;
     }
 }
 
@@ -64,14 +61,13 @@ export class Wall extends StaticEntity {
 }
 
 export class Exit extends StaticEntity {
-    constructor() {
-        super();
-        this.isPassable = true;
-    }
     static getSymbol() {
         return 'O';
     }
     static getDescription() {
         return 'is how to escape the G.';
+    }
+    isPassable(by_entity) {
+        return by_entity instanceof Hero;
     }
 }
