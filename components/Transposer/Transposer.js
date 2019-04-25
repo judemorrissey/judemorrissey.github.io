@@ -60,19 +60,22 @@ export default class Transposer extends React.Component {
         } = this.state;
         return e('div', {className: 'container'},
             e('input', {
+                className: 'chordsInput',
                 onChange: this.onInputChange.bind(this),
                 type: 'text'
             }),
-            e('div', {},
+            e('div', {className: 'transposeDownContainer'},
                 e(StepButtons, {
+                    className: 'transposeDownButtonsContainer',
                     onMinusClick: this.onStepDownClick.bind(this, -1),
                     onPlusClick: this.onStepDownClick.bind(this, 1),
                     value: `${halfStepsDown} half steps down`
                 }),
                 this.renderSteps(chordsStr, -halfStepsDown)
             ),
-            e('div', {},
+            e('div', {className: 'transposeUpContainer'},
                 e(StepButtons, {
+                    className: 'transposeUpButtonsContainer',
                     onMinusClick: this.onStepUpClick.bind(this, -1),
                     onPlusClick: this.onStepUpClick.bind(this, 1),
                     value: `${halfStepsUp} half steps up`
