@@ -57,11 +57,11 @@ $mq-retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 @mixin dynamicFontSizes($base-font-size: 1em, $base-line-height: 1.5) {
     font-size: $base-font-size;
     line-height: $base-line-height;
-    @media #{$mq-medium} { font-size: $base-font-size * 1.2; line-height: $base-line-height * 1.2; }
-    @media #{$mq-large} { font-size: $base-font-size * 1.3; }
-    @media #{$mq-xlarge} { font-size: $base-font-size * 1.4; }
-    @media #{$mq-xxlarge} { font-size: $base-font-size * 1.6; }
-    @media #{$mq-retina} { font-size: $base-font-size * 2.0; }
+    @media #{$mq-medium} { font-size: $base-font-size * 1.0; line-height: $base-line-height * 1.2; }
+    @media #{$mq-large} { font-size: $base-font-size * 1.05; }
+    @media #{$mq-xlarge} { font-size: $base-font-size * 1.1; }
+    @media #{$mq-xxlarge} { font-size: $base-font-size * 1.15; }
+    @media #{$mq-retina} { font-size: $base-font-size * 1.2; }
 }
 
 @mixin dynamicSideMargins($scale: 4%) {
