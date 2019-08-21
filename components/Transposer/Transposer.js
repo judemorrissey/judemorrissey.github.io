@@ -20,14 +20,14 @@ export default class Transposer extends React.Component {
         return TransposerLib.transpose(chords, halfSteps);
     }
 
-    onInputChange(event) {
+    onInputChange = event => {
         const str = event.target.value || '';
         return this.setState({
             chordsStr: str
         });
     }
 
-    onStepDownClick(value) {
+    onStepDownClick = value => {
         return this.setState(prevState => {
             const newValue = this.limit(prevState.halfStepsDown + value);
             return {
@@ -36,7 +36,7 @@ export default class Transposer extends React.Component {
         });
     }
 
-    onStepUpClick(value) {
+    onStepUpClick = value => {
         return this.setState(prevState => {
             const newValue = this.limit(prevState.halfStepsUp + value);
             return {
@@ -61,14 +61,14 @@ export default class Transposer extends React.Component {
         return e('div', {className: 'container'},
             e('input', {
                 className: 'chordsInput',
-                onChange: this.onInputChange.bind(this),
+                onChange: this.onInputChange,
                 type: 'text'
             }),
             e('div', {className: 'transposeDownContainer'},
                 e(StepButtons, {
                     className: 'transposeDownButtonsContainer',
-                    onMinusClick: this.onStepDownClick.bind(this, -1),
-                    onPlusClick: this.onStepDownClick.bind(this, 1),
+                    onMinusClick: () => this.onStepDownClick(-1),
+                    onPlusClick: () => this.onStepDownClick(1),
                     value: `${halfStepsDown} half steps down`
                 }),
                 this.renderSteps(chordsStr, -halfStepsDown)
@@ -76,8 +76,8 @@ export default class Transposer extends React.Component {
             e('div', {className: 'transposeUpContainer'},
                 e(StepButtons, {
                     className: 'transposeUpButtonsContainer',
-                    onMinusClick: this.onStepUpClick.bind(this, -1),
-                    onPlusClick: this.onStepUpClick.bind(this, 1),
+                    onMinusClick: () => this.onStepUpClick(-1),
+                    onPlusClick: () => this.onStepUpClick(1),
                     value: `${halfStepsUp} half steps up`
                 }),
                 this.renderSteps(chordsStr, halfStepsUp)

@@ -8,6 +8,7 @@ env:
 globals:
     React: true
     ReactDOM: true
+parser: babel-eslint
 parserOptions:
     ecmaFeatures:
         impliedStrict: true
@@ -50,4 +51,4 @@ rules:
         - always
     spaced-comment: 1
     strict: 2
-    
+

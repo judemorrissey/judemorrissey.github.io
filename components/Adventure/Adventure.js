@@ -150,10 +150,10 @@ export default class Adventure extends React.Component {
 
     renderControls() {
         return e('div', {className: 'controlsContainer'},
-            e('button', {onClick: this.moveHero.bind(this, [-1, 0])}, '<'),
-            e('button', {onClick: this.moveHero.bind(this, [0, 1])}, 'v'),
-            e('button', {onClick: this.moveHero.bind(this, [0, -1])}, '^'),
-            e('button', {onClick: this.moveHero.bind(this, [1, 0])}, '>')
+            e('button', {onClick: () => this.moveHero([-1, 0])}, '<'),
+            e('button', {onClick: () => this.moveHero([0, 1])}, 'v'),
+            e('button', {onClick: () => this.moveHero([0, -1])}, '^'),
+            e('button', {onClick: () => this.moveHero([1, 0])}, '>')
         );
     }
 
