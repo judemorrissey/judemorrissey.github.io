@@ -20,14 +20,14 @@ export default class Transposer extends React.Component {
         return TransposerLib.transpose(chords, halfSteps);
     }
 
-    onInputChange = event => {
+    onInputChange(event) {
         const str = event.target.value || '';
         return this.setState({
             chordsStr: str
         });
     }
 
-    onStepDownClick = value => {
+    onStepDownClick(value) {
         return this.setState(prevState => {
             const newValue = this.limit(prevState.halfStepsDown + value);
             return {
@@ -36,7 +36,7 @@ export default class Transposer extends React.Component {
         });
     }
 
-    onStepUpClick = value => {
+    onStepUpClick(value) {
         return this.setState(prevState => {
             const newValue = this.limit(prevState.halfStepsUp + value);
             return {
@@ -61,7 +61,7 @@ export default class Transposer extends React.Component {
         return e('div', {className: 'container'},
             e('input', {
                 className: 'chordsInput',
-                onChange: this.onInputChange,
+                onChange: () => this.onInputChange(),
                 type: 'text'
             }),
             e('div', {className: 'transposeDownContainer'},

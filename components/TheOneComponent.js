@@ -20,7 +20,7 @@ export default class TheOneComponent extends React.Component {
         };
     }
 
-    onSwitcherClicked = name => {
+    onSwitcherClicked(name) {
         return this.setState({
             nowShowing: CONTENT_MAP[name]
         });
@@ -31,7 +31,7 @@ export default class TheOneComponent extends React.Component {
             nowShowing
         } = this.state;
         return e('div', {className: 'theOneContainer'},
-            e(Header, {contentNames: Object.keys(CONTENT_MAP), onSwitcherClicked: this.onSwitcherClicked}),
+            e(Header, {contentNames: Object.keys(CONTENT_MAP), onSwitcherClicked: () => this.onSwitcherClicked()}),
             e('div', {className: 'content'}, e(nowShowing)),
             e(Footer)
         );
