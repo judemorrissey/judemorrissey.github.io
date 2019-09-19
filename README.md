@@ -9,3 +9,8 @@ To run a local webserver:
 - then cd into your project directory, and run `http-server -c-1`
 - alternatively, feel free to use `npm start`, which basically does the same thing above :)
 - if you want to make changes to the CSS, please edit .scss files only, and either restart the `http-server` above so the prestart npm script will run for compiling the CSS, or you can use `npm run auto-compile-css` to start a sass watcher for compiling the CSS as you make changes.
+
+TODOs so I wouldn't forget:
+- n-sided Dice Roller
+- MoCkiNg TeXt TrAnSLaToR
+- Text accenter (like character accents in Chrono Cross)
