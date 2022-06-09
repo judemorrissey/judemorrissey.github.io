@@ -1,37 +1,49 @@
 {
-  "name": "judemorrissey.github.io",
-  "version": "1.0.0",
-  "description": "My GitHub hosted static webpage for practicing front-end stuff.",
-  "main": "index.html",
+  "name": "judemorrissey-github-io",
+  "version": "0.1.0",
+  "homepage": "https://judemorrissey.github.io",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
+  },
   "scripts": {
-    "auto-compile-css": "sass --watch --style=compressed --no-source-map css:css",
-    "compile-css": "scripts/compile.sh",
-    "prestart": "npm run compile-css",
-    "start": "http-server -c-1",
-    "test": "mocha --require babel-core/register $(find ./test/ -name \"*.js\")"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/judemorrissey/judemorrissey.github.io.git"
-  },
-  "author": "@judemorrissey",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/judemorrissey/judemorrissey.github.io/issues"
-  },
-  "homepage": "https://github.com/judemorrissey/judemorrissey.github.io#readme",
-  "devDependencies": {
-    "@babel/preset-env": "^7.5.5",
-    "babel-core": "^6.26.3",
-    "chai": "^4.2.0",
-    "cypress": "^4.3.1",
-    "mocha": "^6.2.0",
-    "react": "^16.9.0"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
   },
-  "dependencies": {}
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
 }
