@@ -18,6 +18,7 @@ module.exports = {
     // begin extends outside of default from template
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',

@@ -1,14 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img alt="logo" className="App-logo" src={logo} />
+        <h1>{`Jude Morrissey`}</h1>
+        <code>{`This site under construction :)`}</code>
         <p>
-          <code>{`Under Construction :)`}</code>
+          {`Please check out my `}
+          <a
+            className="App-link"
+            href="https://www.linkedin.com/in/judemorrissey"
+            rel="noreferrer noopener"
+            target="_blank">{`LinkedIn`}</a>
+          {` and `}
+          <a
+            className="App-link"
+            href="https://www.github.com/judemorrissey"
+            rel="noreferrer noopener"
+            target="_blank">{`GitHub`}</a>
+          {` in the meantime.`}
         </p>
       </header>
     </div>
