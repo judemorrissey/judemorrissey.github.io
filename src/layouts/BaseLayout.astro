@@ -1,0 +1,45 @@
+---
+type Props = {
+  description?: string;
+  title?: string;
+};
+
+const {
+  title = 'Jude Morrissey',
+  description = 'Personal site of Jude Morrissey',
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.judemorrissey.com" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+          document.documentElement.setAttribute('data-theme', stored);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
