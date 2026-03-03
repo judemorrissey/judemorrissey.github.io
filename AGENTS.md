@@ -3,7 +3,8 @@
 ## Stack
 
 - **Framework:** Astro 5 with React 19 islands for interactive components
-- **Styling:** Tailwind CSS v4 via `@tailwindcss/vite` plugin (not `@astrojs/tailwind`, which is v3 only)
+- **Styling:** Native CSS with [Open Props](https://open-props.style/) design tokens (sizes, fonts, easings, borders) + `modern-normalize` for CSS reset. Scoped `<style>` blocks in Astro components
+- **Interactive components:** `@radix-ui/react-dialog` installed for future use. Pattern: Radix primitives styled with native CSS via `[data-*]` attribute selectors
 - **Package manager:** npm (not yarn)
 - **TypeScript:** Strict mode, extends `astro/tsconfigs/strict`
 - **Linting:** ESLint 10 flat config (`eslint.config.js`), not `.eslintrc.*`
