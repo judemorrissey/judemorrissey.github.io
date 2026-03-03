@@ -4,6 +4,119 @@ import ThemeToggle from '../components/ThemeToggle';
 ---
 
 <BaseLayout>
-  <ThemeToggle client:only="react" />
-  <h1>Jude Morrissey</h1>
+  <nav class="nav">
+    <ThemeToggle client:only="react" />
+  </nav>
+
+  <main class="content">
+    <section class="hero">
+      <h1 class="name">Jude Morrissey</h1>
+      <p class="tagline">Software Engineer</p>
+      <div class="links">
+        <a
+          href="https://www.linkedin.com/in/judemorrissey"
+          rel="noreferrer noopener"
+          target="_blank">
+          LinkedIn
+        </a>
+        <span class="separator" aria-hidden="true">/</span>
+        <a
+          href="https://www.github.com/judemorrissey"
+          rel="noreferrer noopener"
+          target="_blank">
+          GitHub
+        </a>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2 class="section-heading">About</h2>
+      <p>
+        I'm a software engineer who enjoys building things for the web. I care
+        about clean code, good developer experience, and making software that
+        people actually want to use.
+      </p>
+    </section>
+  </main>
 </BaseLayout>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+  }
+
+  .content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+    gap: 4rem;
+  }
+
+  .hero {
+    text-align: center;
+  }
+
+  .name {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .tagline {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin: 0.5rem 0 0;
+  }
+
+  .links {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .separator {
+    color: var(--color-text-muted);
+  }
+
+  .about {
+    text-align: center;
+  }
+
+  .section-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    color: var(--color-text);
+  }
+
+  .about p {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 480px) {
+    .name {
+      font-size: 2.25rem;
+    }
+
+    .content {
+      padding: 1.5rem;
+      gap: 3rem;
+    }
+  }
+</style>
