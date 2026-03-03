@@ -1,22 +1,20 @@
-@import 'tailwindcss';
+@import 'modern-normalize';
 @import './theme.css';
 
-@layer base {
-  body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-  }
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
 
-  a {
-    color: var(--color-link);
-    text-decoration: none;
-  }
+a {
+  color: var(--color-link);
+  text-decoration: none;
+}
 
-  a:hover {
-    color: var(--color-link-hover);
-    text-decoration: underline;
-  }
+a:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
 }
