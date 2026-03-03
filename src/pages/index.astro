@@ -43,8 +43,8 @@ import ThemeToggle from '../components/ThemeToggle';
 <style>
   .nav {
     position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: var(--size-5);
+    right: var(--size-5);
     z-index: 10;
   }
 
@@ -54,10 +54,10 @@ import ThemeToggle from '../components/ThemeToggle';
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: var(--size-7);
     max-width: 640px;
     margin: 0 auto;
-    gap: 4rem;
+    gap: var(--size-9);
   }
 
   .hero {
@@ -65,26 +65,26 @@ import ThemeToggle from '../components/ThemeToggle';
   }
 
   .name {
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: var(--font-size-7);
+    font-weight: var(--font-weight-7);
     margin: 0;
     color: var(--color-text);
     letter-spacing: -0.02em;
   }
 
   .tagline {
-    font-size: 1.25rem;
+    font-size: var(--font-size-3);
     color: var(--color-text-muted);
-    margin: 0.5rem 0 0;
+    margin: var(--size-2) 0 0;
   }
 
   .links {
-    margin-top: 1.5rem;
+    margin-top: var(--size-5);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    font-size: 1.1rem;
+    font-size: var(--font-size-2);
   }
 
   .separator {
@@ -96,17 +96,17 @@ import ThemeToggle from '../components/ThemeToggle';
   }
 
   .section-heading {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 1rem;
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-6);
+    margin: 0 0 var(--size-3);
     color: var(--color-text);
   }
 
   .about p {
     color: var(--color-text-muted);
-    line-height: 1.7;
+    line-height: var(--font-lineheight-4);
     margin: 0;
-    font-size: 1.1rem;
+    font-size: var(--font-size-2);
   }
 
   @media (max-width: 480px) {
@@ -115,8 +115,8 @@ import ThemeToggle from '../components/ThemeToggle';
     }
 
     .content {
-      padding: 1.5rem;
-      gap: 3rem;
+      padding: var(--size-5);
+      gap: var(--size-8);
     }
   }
 </style>
