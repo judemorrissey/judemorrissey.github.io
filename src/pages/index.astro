@@ -1,14 +1,9 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ThemeToggle from '../components/ThemeToggle';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Jude Morrissey</title>
-  </head>
-  <body>
-    <h1>Jude Morrissey</h1>
-  </body>
-</html>
+<BaseLayout>
+  <ThemeToggle client:only="react" />
+  <h1>Jude Morrissey</h1>
+</BaseLayout>
