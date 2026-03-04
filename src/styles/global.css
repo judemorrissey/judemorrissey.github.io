@@ -5,7 +5,28 @@
 @import 'open-props/borders';
 @import './theme.css';
 
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    url('@fontsource/lato/files/lato-latin-400-normal.woff2') format('woff2'),
+    url('@fontsource/lato/files/lato-latin-400-normal.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    url('@fontsource/lato/files/lato-latin-700-normal.woff2') format('woff2'),
+    url('@fontsource/lato/files/lato-latin-700-normal.woff') format('woff');
+}
+
 body {
+  font-family: 'Lato', sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
   transition:
