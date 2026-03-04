@@ -36,6 +36,13 @@ export default tseslint.config(
       'default-case': 'error',
       'default-case-last': 'error',
 
+      // Functions
+      'prefer-arrow-callback': 'error',
+      'func-style': ['error', 'expression'],
+
+      // Exports
+      'no-restricted-exports': ['error', {restrictDefaultExports: {direct: true}}],
+
       // Import ordering
       'sort-imports': ['error', {ignoreDeclarationSort: true}],
     },

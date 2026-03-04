@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 
 type Theme = 'light' | 'dark';
 
-function getInitialTheme(): Theme {
+const getInitialTheme = (): Theme => {
   const stored = localStorage.getItem('theme');
   if (stored === 'light' || stored === 'dark') {
     return stored;
@@ -10,9 +10,9 @@ function getInitialTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches
     ? 'dark'
     : 'light';
-}
+};
 
-export default function ThemeToggle() {
+export const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
@@ -41,4 +41,4 @@ export default function ThemeToggle() {
       {theme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19'}
     </button>
   );
-}
+};
