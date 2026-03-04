@@ -25,6 +25,16 @@
     url('@fontsource/lato/files/lato-latin-700-normal.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    url('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2') format('woff2'),
+    url('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff') format('woff');
+}
+
 body {
   font-family: 'Lato', sans-serif;
   background-color: var(--color-bg);
