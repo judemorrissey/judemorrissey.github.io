@@ -8,12 +8,13 @@ import {ThemeToggle} from '../components/ThemeToggle';
     <ThemeToggle client:only="react" />
   </nav>
 
+  <!-- Photos: Unsplash — Zoo Leipzig, unknown, Luke Jones, Chris Ried -->
   <div class="floating-images" aria-hidden="true">
     <div class="float-img img-1"></div>
     <div class="float-img img-2"></div>
     <div class="float-img img-3"></div>
     <div class="float-img img-4"></div>
-    <div class="float-img img-5"></div>
+
   </div>
 
   <main class="content">
@@ -79,7 +80,7 @@ import {ThemeToggle} from '../components/ThemeToggle';
       scale: 0.8;
     }
     to {
-      opacity: 0.12;
+      opacity: 0.2;
       scale: 1;
     }
   }
@@ -106,6 +107,8 @@ import {ThemeToggle} from '../components/ThemeToggle';
     position: absolute;
     border-radius: var(--radius-3);
     opacity: 0;
+    background-size: cover;
+    background-position: center;
     animation:
       drift-in 1.2s var(--ease-2) var(--delay) forwards,
       float var(--float-dur, 7s) var(--ease-2) var(--delay) infinite;
@@ -121,11 +124,7 @@ import {ThemeToggle} from '../components/ThemeToggle';
     height: 100px;
     top: 10%;
     left: 8%;
-    background: linear-gradient(
-      135deg,
-      var(--color-accent) 0%,
-      transparent 80%
-    );
+    background-image: url('/float-1.jpg');
     rotate: -6deg;
   }
 
@@ -135,16 +134,11 @@ import {ThemeToggle} from '../components/ThemeToggle';
     --drift-y: 6px;
     --bob: -10px;
     --float-dur: 8s;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 100px;
     top: 15%;
     right: 10%;
-    background: linear-gradient(
-      225deg,
-      var(--color-accent) 0%,
-      transparent 80%
-    );
-    border-radius: 50%;
+    background-image: url('/float-2.jpg');
     rotate: 4deg;
   }
 
@@ -158,11 +152,7 @@ import {ThemeToggle} from '../components/ThemeToggle';
     height: 110px;
     bottom: 18%;
     left: 5%;
-    background: linear-gradient(
-      45deg,
-      var(--color-accent) 0%,
-      var(--color-border) 100%
-    );
+    background-image: url('/float-3.jpg');
     rotate: 3deg;
   }
 
@@ -176,32 +166,10 @@ import {ThemeToggle} from '../components/ThemeToggle';
     height: 140px;
     bottom: 20%;
     right: 8%;
-    background: linear-gradient(
-      315deg,
-      var(--color-accent) 0%,
-      transparent 80%
-    );
+    background-image: url('/float-4.jpg');
     rotate: -4deg;
   }
 
-  .img-5 {
-    --delay: 4.2s;
-    --drift-x: 4px;
-    --drift-y: 6px;
-    --bob: 10px;
-    --float-dur: 8.5s;
-    width: 90px;
-    height: 90px;
-    top: 50%;
-    left: 15%;
-    background: linear-gradient(
-      180deg,
-      var(--color-accent) 0%,
-      transparent 70%
-    );
-    border-radius: 50%;
-    rotate: 8deg;
-  }
 
   @keyframes fade-in-up {
     from {
