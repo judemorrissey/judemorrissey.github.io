@@ -8,6 +8,14 @@ import {ThemeToggle} from '../components/ThemeToggle';
     <ThemeToggle client:only="react" />
   </nav>
 
+  <div class="floating-images" aria-hidden="true">
+    <div class="float-img img-1"></div>
+    <div class="float-img img-2"></div>
+    <div class="float-img img-3"></div>
+    <div class="float-img img-4"></div>
+    <div class="float-img img-5"></div>
+  </div>
+
   <main class="content">
     <section class="hero">
       <div class="name-row">
@@ -52,6 +60,8 @@ import {ThemeToggle} from '../components/ThemeToggle';
   }
 
   .content {
+    position: relative;
+    z-index: 1;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -61,6 +71,136 @@ import {ThemeToggle} from '../components/ThemeToggle';
     max-width: 640px;
     margin: 0 auto;
     gap: var(--size-9);
+  }
+
+  @keyframes drift-in {
+    from {
+      opacity: 0;
+      scale: 0.8;
+    }
+    to {
+      opacity: 0.12;
+      scale: 1;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      translate: var(--drift-x, 0) var(--drift-y, 0);
+    }
+    50% {
+      translate: var(--drift-x, 0) calc(var(--drift-y, 0px) + var(--bob, 12px));
+    }
+  }
+
+  .floating-images {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .float-img {
+    position: absolute;
+    border-radius: var(--radius-3);
+    opacity: 0;
+    animation:
+      drift-in 1.2s var(--ease-2) var(--delay) forwards,
+      float var(--float-dur, 7s) var(--ease-2) var(--delay) infinite;
+  }
+
+  .img-1 {
+    --delay: 3s;
+    --drift-x: 6px;
+    --drift-y: -4px;
+    --bob: 14px;
+    --float-dur: 7s;
+    width: 140px;
+    height: 100px;
+    top: 10%;
+    left: 8%;
+    background: linear-gradient(
+      135deg,
+      var(--color-accent) 0%,
+      transparent 80%
+    );
+    rotate: -6deg;
+  }
+
+  .img-2 {
+    --delay: 3.3s;
+    --drift-x: -8px;
+    --drift-y: 6px;
+    --bob: -10px;
+    --float-dur: 8s;
+    width: 120px;
+    height: 120px;
+    top: 15%;
+    right: 10%;
+    background: linear-gradient(
+      225deg,
+      var(--color-accent) 0%,
+      transparent 80%
+    );
+    border-radius: 50%;
+    rotate: 4deg;
+  }
+
+  .img-3 {
+    --delay: 3.6s;
+    --drift-x: 10px;
+    --drift-y: 4px;
+    --bob: 16px;
+    --float-dur: 9s;
+    width: 160px;
+    height: 110px;
+    bottom: 18%;
+    left: 5%;
+    background: linear-gradient(
+      45deg,
+      var(--color-accent) 0%,
+      var(--color-border) 100%
+    );
+    rotate: 3deg;
+  }
+
+  .img-4 {
+    --delay: 3.9s;
+    --drift-x: -5px;
+    --drift-y: -8px;
+    --bob: -12px;
+    --float-dur: 6.5s;
+    width: 100px;
+    height: 140px;
+    bottom: 20%;
+    right: 8%;
+    background: linear-gradient(
+      315deg,
+      var(--color-accent) 0%,
+      transparent 80%
+    );
+    rotate: -4deg;
+  }
+
+  .img-5 {
+    --delay: 4.2s;
+    --drift-x: 4px;
+    --drift-y: 6px;
+    --bob: 10px;
+    --float-dur: 8.5s;
+    width: 90px;
+    height: 90px;
+    top: 50%;
+    left: 15%;
+    background: linear-gradient(
+      180deg,
+      var(--color-accent) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    rotate: 8deg;
   }
 
   @keyframes fade-in-up {
@@ -172,8 +312,13 @@ import {ThemeToggle} from '../components/ThemeToggle';
     .name,
     .tagline,
     .links,
-    .about {
+    .about,
+    .float-img {
       animation: none;
+    }
+
+    .float-img {
+      opacity: 0.08;
     }
 
     .name {
@@ -193,6 +338,10 @@ import {ThemeToggle} from '../components/ThemeToggle';
     .content {
       padding: var(--size-5);
       gap: var(--size-8);
+    }
+
+    .floating-images {
+      display: none;
     }
   }
 </style>
