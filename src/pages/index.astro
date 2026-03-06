@@ -109,9 +109,22 @@ import {ThemeToggle} from '../components/ThemeToggle';
     opacity: 0;
     background-size: cover;
     background-position: center;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: transform 0.5s var(--ease-elastic-out-3);
     animation:
       drift-in 1.2s var(--ease-2) var(--delay) forwards,
       float var(--float-dur, 7s) var(--ease-2) var(--delay) infinite;
+  }
+
+  .float-img:hover {
+    transform: scale(1.15);
+  }
+
+  .float-img:active {
+    transform: scale(0.9);
+    transition-duration: 0.15s;
+    transition-timing-function: var(--ease-bounce-3);
   }
 
   .img-1 {
@@ -287,6 +300,7 @@ import {ThemeToggle} from '../components/ThemeToggle';
 
     .float-img {
       opacity: 0.08;
+      transition: none;
     }
 
     .name {
