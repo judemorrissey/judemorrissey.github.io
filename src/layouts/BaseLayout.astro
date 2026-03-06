@@ -23,7 +23,14 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.judemorrissey.com" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content="https://www.judemorrissey.com/og-image.jpg" />
+    <meta property="og:image:width" content="460" />
+    <meta property="og:image:height" content="460" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://www.judemorrissey.com/og-image.jpg" />
     <link
       rel="preload"
       href={latoRegular}
